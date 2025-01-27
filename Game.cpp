@@ -20,7 +20,7 @@ bool Game::Initialize() {
 
     // if successfully initialized, create window
     mWindow = SDL_CreateWindow(
-        "Pacman", // window title
+        "Pong", // window title
         100, // x coordinate
         100, // y coordinate
         1024, // window width
