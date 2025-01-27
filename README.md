@@ -25,3 +25,13 @@ brew install sdl2
 ```
 brew info sdl2
 ```
+
+### How to Run (Using Mac & VSCode)
+
+```
+g++ -std=c++17 main.cpp Game.cpp {path/to/SDL2} -lSDL2 -o game
+```
+
+```
+./game
+```
