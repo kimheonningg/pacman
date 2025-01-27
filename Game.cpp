@@ -139,6 +139,14 @@ void Game::UpdateGame() {
     if(mPaddleDir != 0) {
         // if mPaddleDir == 0, do nothing
         mPaddlePos.y += mPaddleDir * 300.0f * deltaTime; // paddle moves 300 pixels per sec
+
+        // if paddle moves out of frame
+        if(mPaddlePos.y < (paddleH/2.0f + thickness)) {
+            mPaddlePos.y = paddleH/2.0f + thickness;
+        }
+        else if(mPaddlePos.y > (768.0f - paddleH/2.0f - thickness)) {
+            mPaddlePos.y = 768.0f - paddleH/2.0f - thickness;
+        }
     }
 }
 
