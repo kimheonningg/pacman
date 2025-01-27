@@ -171,6 +171,26 @@ void Game::GenerateOutput() {
     
     SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 
+    // draw top wall
+    SDL_Rect wall{
+        0, // x coordinate
+        0, // y coordinate
+        1024, // width
+        thickness // height
+    };
+    SDL_RenderFillRect(mRenderer, &wall);
+
+    // draw bottom wall
+    wall.y = 768 - thickness;
+    SDL_RenderFillRect(mRenderer, &wall);
+
+    // draw right wall
+    wall.x = 1024 - thickness;
+    wall.y = 0;
+    wall.w = thickness;
+    wall.h = 1024;
+    SDL_RenderFillRect(mRenderer, &wall);
+
     // draw the paddle
     SDL_Rect paddle{
         static_cast<int>(mPaddlePos.x),
