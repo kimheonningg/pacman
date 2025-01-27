@@ -100,10 +100,10 @@ void Game::ProcessInput() {
 
     // interpret paddle direction: W key for up, S key for down
     mPaddleDir = 0;
-    if(state[SDL_SCANCODE_W]) { // up
+    if(state[SDL_SCANCODE_UP]) { // up
         mPaddleDir -= 1;
     }
-    if(state[SDL_SCANCODE_S]) { // down
+    if(state[SDL_SCANCODE_DOWN]) { // down
         mPaddleDir += 1;
     }
 }
