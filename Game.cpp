@@ -5,7 +5,11 @@ using namespace std;
 const int thickness = 15;
 const float paddleH = 100.0f;
 
-Game::Game():mWindow(nullptr), mIsRunning(true), mRenderer(nullptr){
+Game::Game():
+    mWindow(nullptr),
+    mIsRunning(true),
+    mRenderer(nullptr),
+    mTicksCount(0) {
 
 }
 
@@ -91,6 +95,34 @@ void Game::ProcessInput() {
 
 void Game::UpdateGame() {
 
+    // implement frame limit
+    while(!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16)){
+        ; // do nothing if 16ms did not pass
+    }
+
+    /* 
+    SDL_GetTicks function returns the number of times passed 
+    after SDL_Init function is called (in milliseconds)
+    */
+    /*
+    deltaTime is calculated by 
+    (current frame tick number) - (most recent frame tick number)
+    */
+    /*
+    deltaTime is divided by 1000.0f to convert 
+    from milliseconds to seconds
+    */
+    float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
+    
+    /*
+    prevent deltaTime from getting too big,
+    by setting the maximum deltaTime    
+    */
+    if(deltaTime > 0.05f) {
+        deltaTime = 0.05f;
+    }
+
+    mTicksCount = SDL_GetTicks(); // update mTicksCount
 }
 
 void Game::GenerateOutput() {

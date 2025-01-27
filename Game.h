@@ -25,4 +25,7 @@ class Game {
 
         Vector2D mPaddlePos; // position of paddle
         Vector2D mBallPos; // position of ball
+
+        // number of ticks passed
+        Uint32 mTicksCount;
 };
