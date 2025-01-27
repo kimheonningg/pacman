@@ -9,7 +9,8 @@ Game::Game():
     mWindow(nullptr),
     mIsRunning(true),
     mRenderer(nullptr),
-    mTicksCount(0) {
+    mTicksCount(0),
+    mPaddleDir(0) {
 
 }
 
@@ -80,16 +81,26 @@ void Game::ProcessInput() {
     // while event still exists in queue
     while(SDL_PollEvent(&event)) {
         switch(event.type) {
-            case SDL_QUIT: // keyboard X quits the loop
+            case SDL_QUIT: // SDL_QUIT event ends the game
                 mIsRunning = false;
                 break;
         }
     }
 
+    // 'state' stores the state of keyboard
     const Uint8* state = SDL_GetKeyboardState(NULL);
     // if keyboard esc is pressed, quit loop
     if(state[SDL_SCANCODE_ESCAPE]) {
         mIsRunning = false;
+    }
+
+    // interpret paddle direction: W key for up, S key for down
+    mPaddleDir = 0;
+    if(state[SDL_SCANCODE_W]) { // up
+        mPaddleDir -= 1;
+    }
+    if(state[SDL_SCANCODE_S]) { // down
+        mPaddleDir += 1;
     }
 }
 
@@ -123,6 +134,12 @@ void Game::UpdateGame() {
     }
 
     mTicksCount = SDL_GetTicks(); // update mTicksCount
+
+    // update paddle position using mPaddleDir
+    if(mPaddleDir != 0) {
+        // if mPaddleDir == 0, do nothing
+        mPaddlePos.y += mPaddleDir * 300.0f * deltaTime; // paddle moves 300 pixels per sec
+    }
 }
 
 void Game::GenerateOutput() {

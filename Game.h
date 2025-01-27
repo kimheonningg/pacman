@@ -28,4 +28,6 @@ class Game {
 
         // number of ticks passed
         Uint32 mTicksCount;
+
+        int mPaddleDir; // direction of paddle: up or down
 };
