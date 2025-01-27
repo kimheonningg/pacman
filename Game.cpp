@@ -156,6 +156,57 @@ void Game::UpdateGame() {
     // update ball position using mBallVelocity
     mBallPos.x += mBallVelocity.x * deltaTime;
     mBallPos.y += mBallVelocity.y * deltaTime;
+
+
+    // bouncing actions for the ball
+
+    // 1. x-direction changes
+    // check if the ball intersect with the paddle
+    float distance = mPaddlePos.y - mBallPos.y;
+    // get the absolute value of distance
+    distance = (distance > 0.0f) ? distance : -distance;
+    if(
+        // if the ball is exactly above the paddle
+        distance <= paddleH / 2.0f 
+        // if the ball is at the left of the screen
+        && (20.0f <= mBallPos.x && mBallPos.x <= 25.0f) 
+        // if the ball is moving leftward
+        && mBallVelocity.x < 0.0f
+    ) {
+        // the ball bounces to the paddle,
+        // so change the x-direction of the ball
+        mBallVelocity.x *= - 1.0f;
+    }
+    // check if the ball go off screen (leftward)
+    else if(mBallPos.x <= 0.0f) {
+        mIsRunning = false; // end game
+    }
+    // check if the ball collide with the right wall
+    else if(mBallPos.x >= (1024.0f - thickness) && mBallVelocity.x > 0.0f) {
+        // the ball bounces to the right wall,
+        // so change the x-direction of the ball
+        mBallVelocity.x *= -1.0f;
+    }
+
+    // 2. y-direction changes
+    // check if the ball collide with the top wall
+    if(
+        mBallPos.y <= thickness 
+        && mBallVelocity.y < 0.0f // if the ball is going up
+    ) {
+        // the ball bounces to the top wall,
+        // so change the y-direction of the ball
+        mBallVelocity.y *= - 1;
+    }
+    // check if the ball collide with the bottom wall
+    else if(
+        mBallPos.y >= (768 - thickness)
+        && mBallVelocity.y > 0.0f // if the ball is going down
+    ){
+        // the ball bounces to the bottom wall,
+        // so change the y-direction of the ball
+        mBallVelocity.y *= -1;
+    }
 }
 
 void Game::GenerateOutput() {
