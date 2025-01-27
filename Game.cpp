@@ -58,6 +58,10 @@ bool Game::Initialize() {
     mBallPos.x = 1024.0f/2.0f;
     mBallPos.y = 768.0f/2.0f;
 
+    // hard code initial velocity of ball
+    mBallVelocity.x = -200.0f;
+    mBallVelocity.y = 235.0f;
+
     return true;
 }
 
@@ -148,6 +152,10 @@ void Game::UpdateGame() {
             mPaddlePos.y = 768.0f - paddleH/2.0f - thickness;
         }
     }
+
+    // update ball position using mBallVelocity
+    mBallPos.x += mBallVelocity.x * deltaTime;
+    mBallPos.y += mBallVelocity.y * deltaTime;
 }
 
 void Game::GenerateOutput() {

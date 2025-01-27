@@ -30,4 +30,6 @@ class Game {
         Uint32 mTicksCount;
 
         int mPaddleDir; // direction of paddle: up or down
+
+        Vector2D mBallVelocity; // velocity of ball
 };
