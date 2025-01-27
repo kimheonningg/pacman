@@ -14,4 +14,6 @@ class Game {
 
         SDL_Window* mWindow; // window made by SDL
         bool mIsRunning; // if game is still running
+
+        SDL_Renderer* mRenderer; // used to render 2D graphics
 };
